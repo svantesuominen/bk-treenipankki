@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String @id @default(cuid())
+  email        String @unique
+  name         String
+  passwordHash String
+}
+
+model Exercise {
+  id         String             @id @default(cuid())
+  title      String
+  body       String
+  videoUrl   String
+  forPlayers Boolean            @default(false)
+  forCoaches Boolean            @default(false)
+  published  Boolean            @default(false)
+  createdAt  DateTime           @default(now())
+  updatedAt  DateTime           @updatedAt
+  ageGroups  ExerciseAgeGroup[]
+  themes     ExerciseTheme[]
+}
+
+model ExerciseAgeGroup {
+  exerciseId String
+  ageGroup   String
+  exercise   Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+
+  @@id([exerciseId, ageGroup])
+}
+
+model ExerciseTheme {
+  exerciseId String
+  theme      String
+  exercise   Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+
+  @@id([exerciseId, theme])
+}
