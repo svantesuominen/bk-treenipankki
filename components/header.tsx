@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { ClubMark } from "@/components/club-mark";
 import { parseNakyma } from "@/lib/nakyma";
 
 export function Header() {
@@ -19,7 +20,10 @@ export function Header() {
 
   return (
     <header className="bg-[#d21f2a] px-4 pb-3 pt-4 text-white">
-      <h1 className="text-center text-xl font-semibold">Treenipankki</h1>
+      <div className="flex items-center justify-center gap-2">
+        <ClubMark className="h-9 w-9" />
+        <h1 className="text-xl font-semibold">Treenipankki</h1>
+      </div>
       <label className="mt-3 block">
         <span className="sr-only">Näkymä</span>
         <select
@@ -38,7 +42,10 @@ export function Header() {
 export function HeaderFallback() {
   return (
     <header className="bg-[#d21f2a] px-4 pb-3 pt-4 text-white">
-      <h1 className="text-center text-xl font-semibold">Treenipankki</h1>
+      <div className="flex items-center justify-center gap-2">
+        <ClubMark className="h-9 w-9" />
+        <h1 className="text-xl font-semibold">Treenipankki</h1>
+      </div>
       <div className="mt-3 h-10 rounded-full bg-white/80" />
     </header>
   );
